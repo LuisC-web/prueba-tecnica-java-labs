@@ -210,25 +210,24 @@ La API expone los siguientes endpoints:
 
 ### 🔹 **Pantalla de Usuarios**
 
-- Lista de usuarios con opción para ver transacciones
-- Formulario para agregar nuevos usuarios
+- Lista de usuarios con opción para ver transacciones(/users)
+- Formulario para agregar nuevos usuarios(/users/new)
 
 ### 🔹 **Pantalla de Transacciones**
 
-- Lista de transacciones de un usuario
-- Formulario para agregar depósitos y retiros
+- Lista de transacciones de un usuario (/transactions?userId=:userId)
+- Formulario para agregar depósitos y retiros (transactions/new?userId=:userId)
 
 ---
 
 ## 📌 Notas
 
 - Asegúrate de configurar la URL de la API en los servicios Angular (`user.service.ts` y `transaction.service.ts`).
-- Puedes modificar el diseño con Bootstrap según tus necesidades.
-- Si encuentras errores, revisa la consola del navegador (`F12 > Console`).
+- En el .env de backend esta la URI de la basee de datos en render.
 
 ---
 
 ### 📌 Autor
 
 👤 **Tu Nombre**
-📧 Contacto: tuemail@gmail.com
+📧 Contacto: luiscwebg@gmail.com
