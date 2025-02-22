@@ -14,4 +14,6 @@ usersRoutes.post(
 );
 usersRoutes.get("/", UsersController.getUsers);
 
+usersRoutes.get("/", UsersController.getUsers);
+
 export default usersRoutes;

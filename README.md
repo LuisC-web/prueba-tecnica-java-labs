@@ -95,10 +95,81 @@ backend/
 Para la solucion se crean 2 controladoores los cuales son:
 
 - TransactionsController.ts
-  Permite crearrr la validacion de si existe el usuario y crear la transacion. Para poder
-  implementar la validacio
+  Permite crear la transacion si existe el usuario y hay fondos suficientes. Para poder
+  implementar la validación se usa un bucle donde se consulta las transacciones del usuario y se suma o resta dependiendo si es retiro o deposito.
+
+  ```js
+  const sumTransactionTotal = transactions.reduce(
+    (accumulator, transaction) =>
+      accumulator +
+      (transaction.get("type") === "withdrawal"
+        ? -+transaction.get("amount")
+        : +transaction.get("amount")),
+    0
+  );
+  console.log(`Saldo actual: ${sumTransactionTotal}`);
+
+  if (sumTransactionTotal < amount) {
+    res.status(402).json({ msg: "Fondos insuficientes" });
+    return;
+  }
+  ```
 
 - UsersController.ts
+
+### Validaciones
+
+Esta se usó la libería de **express-validator** que hace la implementacion mas sencilla
+
+```js
+//User
+usersRoutes.post(
+  "/",
+  body("name").notEmpty().withMessage("No puede ir vacio"),
+  body("email").isEmail().withMessage("No es un email válido"),
+  handleInputError,
+  UsersController.createUser
+);
+usersRoutes.get("/", UsersController.getUsers);
+//transactionsRoutes
+transactionsRoutes.post(
+  "/",
+  body("user_id").isInt().withMessage("El id no es válido"),
+  body("amount")
+    .isNumeric()
+    .isFloat({ gt: 0 })
+    .withMessage("El monto no es válido"),
+  body("type")
+    .notEmpty()
+    .withMessage("La descripción del proyecto es requerido"),
+
+  body("type")
+    .isIn(["deposit", "withdrawal"])
+    .withMessage("El type no es un tipo válido"),
+  handleInputError,
+  TransactionsController.createTransaction
+);
+
+transactionsRoutes.get(
+  "/:id",
+  param("id").isInt().withMessage("ID no válido"),
+  handleInputError,
+  TransactionsController.getTransaction
+);
+```
+
+Se hace mediante el uso de middleware, que en el caso dee quue no sea válido retorna los errores.
+
+```js
+const handleInputError = (req: Request, res: Response, next: NextFunction) => {
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() });
+    return;
+  }
+  next();
+};
+```
 
 ## 📌 API del Backend
 
@@ -106,11 +177,11 @@ La API expone los siguientes endpoints:
 
 ### 🔹 **Usuarios**
 
-- **Obtener todos los usuarios**  
+- **Obtener todos los usuarios**
   `GET /users`
-- **Obtener usuario por ID**  
+- **Obtener usuario por ID**
   `GET /users/{id}`
-- **Crear un usuario**  
+- **Crear un usuario**
   `POST /users`
   ```json
   {
@@ -121,9 +192,9 @@ La API expone los siguientes endpoints:
 
 ### 🔹 **Transacciones**
 
-- **Obtener transacciones de un usuario**  
+- **Obtener transacciones de un usuario**
   `GET /users/{id}/transactions`
-- **Registrar una transacción**  
+- **Registrar una transacción**
   `POST /transactions`
   ```json
   {
@@ -159,5 +230,5 @@ La API expone los siguientes endpoints:
 
 ### 📌 Autor
 
-👤 **Tu Nombre**  
+👤 **Tu Nombre**
 📧 Contacto: tuemail@gmail.com
