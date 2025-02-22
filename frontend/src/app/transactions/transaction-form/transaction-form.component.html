@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h2>Nueva Transacción</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Monto</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="transaction.amount"
+          name="amount"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Tipo</label>
+        <select
+          class="form-select"
+          [(ngModel)]="transaction.type"
+          name="type"
+          required
+        >
+          <option value="deposit">Depósito</option>
+          <option value="withdrawal">Retiro</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success">Registrar</button>
+    </form>
+  </div>
+</div>

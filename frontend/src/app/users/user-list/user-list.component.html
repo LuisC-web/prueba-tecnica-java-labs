@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-12">
+    <h2>Lista de Usuarios</h2>
+    <a class="btn btn-primary mb-2" routerLink="/users/new">Nuevo Usuario</a>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Creado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.created_at }}</td>
+          <td>
+            <a
+              class="btn btn-info"
+              [routerLink]="['/transactions']"
+              [queryParams]="{ userId: user.id }"
+            >
+              Ver Transacciones
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

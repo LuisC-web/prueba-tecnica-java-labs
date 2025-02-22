@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-12">
+    <h2>Transacciones del Usuario #{{ userId }}</h2>
+    <a
+      class="btn btn-primary mb-2"
+      [routerLink]="['/transactions/new']"
+      [queryParams]="{ userId: userId }"
+    >
+      Nueva Transacción
+    </a>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Monto</th>
+          <th>Tipo</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of transactions">
+          <td>{{ t.id }}</td>
+          <td>{{ t.amount }}</td>
+          <td>{{ t.type }}</td>
+          <td>{{ t.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
