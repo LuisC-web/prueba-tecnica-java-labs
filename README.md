@@ -16,27 +16,31 @@ Esta es la solución desarrollada con **Angular** y **Nodejs** para prueba técn
 ### 1️⃣ Clonar el Repositorio
 
 ```bash
-git clone https://github.com/usuario/proyecto.git
-cd proyecto
+git clone https://github.com/LuisC-web/prueba-tecnica-java-labs
+cd prueba-tecnica-java-labs
 ```
 
-### 2️⃣ Instalar Dependencias
+### 2️⃣ Instalar Dependencias frontend y backend
 
 ```bash
+cd frontend
+npm install
+cd ../backend
 npm install
 ```
 
 ### 3️⃣ Ejecutar el Proyecto
 
 ```bash
+cd frontend
 ng serve --open
+cd ../backend
+npm run dev
 ```
 
-Esto abrirá el navegador en `http://localhost:4200/`
+## 📂 Estructura del Proyecto frontend
 
 ---
-
-## 📂 Estructura del Proyecto
 
 ```
 📦 src/app
@@ -59,7 +63,42 @@ Esto abrirá el navegador en `http://localhost:4200/`
  ┗ 📜 main.ts           # Punto de entrada
 ```
 
+## 📂 Estructura del Proyecto backend
+
 ---
+
+```sh
+backend/
+├── src/
+│   ├── config/         # Configuración (CORS, conexión a la base de datos)
+│   │   ├── cors.ts
+│   │   ├── db.ts
+│   ├── controllers/    # Controladores para manejar la lógica de negocio
+│   │   ├── TransactionsController.ts
+│   │   ├── UsersController.ts
+│   ├── middleware/     # Middlewares (validaciones, autenticación, etc.)
+│   │   ├── validation.ts
+│   ├── models/         # Modelos de la base de datos
+│   │   ├── Transactions.ts
+│   │   ├── Users.ts
+│   ├── routes/         # Definición de rutas
+│   │   ├── transactionsRoutes.ts
+│   │   ├── usersRoutes.ts
+│   │   ├── index.ts
+│   ├── server.ts       # Archivo principal del servidor
+├── .env                # Variables de entorno
+├── .gitignore          # Archivos ignorados en Git
+├── package.json        # Dependencias del proyecto
+├── tsconfig.json       # Configuración de TypeScript
+```
+
+Para la solucion se crean 2 controladoores los cuales son:
+
+- TransactionsController.ts
+  Permite crearrr la validacion de si existe el usuario y crear la transacion. Para poder
+  implementar la validacio
+
+- UsersController.ts
 
 ## 📌 API del Backend
 
